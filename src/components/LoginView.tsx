@@ -3,7 +3,7 @@ import svgPaths from "../imports/svg-n6ebqvze1k";
 import { IncadeaLogo } from "./IncadeaLogo";
 
 interface LoginViewProps {
-  onSignIn: () => void;
+  onSignIn: (username: string, password: string) => void;
 }
 
 function Frame139({ value, onChange }: { value: string; onChange: (value: string) => void }) {
@@ -381,17 +381,15 @@ function HomeBar() {
 }
 
 export default function LoginView({ onSignIn }: LoginViewProps) {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("admin@company4.com");
+  const [password, setPassword] = useState("1");
   const [showPassword, setShowPassword] = useState(false);
 
-  // TODO: Add authentication logic here
-  // For now, this just navigates to the home view
   const handleSignIn = () => {
-    // Future: Validate credentials
-    // Future: Call authentication API
-    // Future: Store user session
-    onSignIn();
+    if (!username.trim() || !password.trim()) {
+      return;
+    }
+    onSignIn(username, password);
   };
 
   const handleTogglePassword = () => {

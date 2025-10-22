@@ -64,6 +64,14 @@
         '@radix-ui/react-accordion@1.2.3': '@radix-ui/react-accordion',
         '@jsr/supabase__supabase-js@2.49.8': '@jsr/supabase__supabase-js',
         '@': path.resolve(__dirname, './src'),
+        '@/auth': path.resolve(__dirname, './src/auth'),
+        '@/components': path.resolve(__dirname, './src/components'),
+        '@/config': path.resolve(__dirname, './src/config'),
+        '@/http': path.resolve(__dirname, './src/http'),
+        '@/pages': path.resolve(__dirname, './src/pages'),
+        '@/router': path.resolve(__dirname, './src/router'),
+        '@/types': path.resolve(__dirname, './src/types'),
+        '@/utils': path.resolve(__dirname, './src/utils'),
       },
     },
     build: {
@@ -73,5 +81,28 @@
     server: {
       port: 3000,
       open: true,
+      proxy: {
+        '/api': {
+          target: 'https://srvstealth.incadeacloud-poc.com/idamsWebApi',
+          changeOrigin: true,
+          secure: true,
+          configure: (proxy, _options) => {
+            proxy.on('error', (err, _req, _res) => {
+              console.log('proxy error', err);
+            });
+            proxy.on('proxyReq', (proxyReq, req, _res) => {
+              console.log('Sending Request to the Target:', req.method, req.url);
+            });
+            proxy.on('proxyRes', (proxyRes, req, _res) => {
+              console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
+            });
+          },
+        },
+        '/odata': {
+          target: 'https://srvstealth.incadeacloud-poc.com/idamsWebApi',
+          changeOrigin: true,
+          secure: true,
+        }
+      }
     },
   });
