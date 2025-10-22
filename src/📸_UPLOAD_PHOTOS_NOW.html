@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📸 Upload Vehicle Photos Now</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            max-width: 600px;
+            width: 100%;
+            padding: 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4C68B0 0%, #667eea 100%);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .step {
+            background: #f8f9fa;
+            border-left: 5px solid #4C68B0;
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 10px;
+        }
+        
+        .step-number {
+            display: inline-block;
+            background: #4C68B0;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-size: 1.3em;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+        
+        .step-title {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .step-text {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+            margin-left: 55px;
+        }
+        
+        .command {
+            background: #1e1e1e;
+            color: #4ec9b0;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 1.2em;
+            margin: 20px 0;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .command:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        
+        .command::after {
+            content: '📋 Click to copy';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+            color: #666;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .big-button {
+            background: #4C68B0;
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3em;
+            cursor: pointer;
+            width: 100%;
+            margin: 30px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(76, 104, 176, 0.4);
+        }
+        
+        .big-button:hover {
+            background: #3d5491;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(76, 104, 176, 0.5);
+        }
+        
+        .big-button:active {
+            transform: translateY(-1px);
+        }
+        
+        .benefits {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-left: 5px solid #28a745;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .benefits h3 {
+            color: #155724;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+        }
+        
+        .benefits ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .benefits li {
+            color: #155724;
+            font-size: 1.1em;
+            padding: 8px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        .benefits li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+            font-size: 1.2em;
+        }
+        
+        .warning {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+        }
+        
+        .warning strong {
+            color: #856404;
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+        
+        .warning p {
+            color: #856404;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        .footer {
+            background: #f8f9fa;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+        
+        .footer p {
+            font-size: 1em;
+            line-height: 1.6;
+        }
+        
+        kbd {
+            background: #f4f4f4;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-family: monospace;
+            box-shadow: 0 2px 0 rgba(0,0,0,0.2);
+            display: inline-block;
+            margin: 0 2px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📸</h1>
+            <h1>Upload Vehicle Photos</h1>
+            <p>100% Local System - No Google Drive</p>
+        </div>
+        
+        <div class="content">
+            <div class="benefits">
+                <h3>✨ Why use the local system:</h3>
+                <ul>
+                    <li>Photos saved directly to database</li>
+                    <li>No dependency on Google Drive or external services</li>
+                    <li>Always works, no permission issues</li>
+                    <li>Automatic image compression</li>
+                    <li>100% free - uses Firestore free tier</li>
+                </ul>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">1</span>
+                    <span>Reload the Page</span>
+                </div>
+                <div class="step-text">
+                    Press <kbd>F5</kbd> or <kbd>Ctrl</kbd> + <kbd>R</kbd>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">2</span>
+                    <span>Open Console</span>
+                </div>
+                <div class="step-text">
+                    Press <kbd>F12</kbd> to open developer tools
+                    <br>
+                    <small>(or right-click → Inspect → Console)</small>
+                </div>
+            </div>
+            
+            <div class="step">
+                <div class="step-title">
+                    <span class="step-number">3</span>
+                    <span>Run this Command</span>
+                </div>
+                <div class="step-text">
+                    Copy and paste this in the console:
+                </div>
+                <div class="command" onclick="copyCommand(this)" data-command="goToVehiclePhotos()">
+                    goToVehiclePhotos()
+                </div>
+            </div>
+            
+            <button class="big-button pulse" onclick="window.location.reload()">
+                🔄 Reload Page Now
+            </button>
+            
+            <div class="warning">
+                <strong>📌 Important:</strong>
+                <p>
+                    Images are saved as base64 in Firestore.
+                    <br>
+                    Maximum recommended size: 5MB per image
+                    <br>
+                    App automatically compresses images to ~800KB
+                </p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>
+                <strong>What will happen?</strong>
+                <br>
+                A page will open where you can upload photos for each vehicle.
+                <br>
+                Photos will be saved immediately to the database.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function copyCommand(element) {
+            const command = element.dataset.command;
+            navigator.clipboard.writeText(command).then(() => {
+                const originalText = element.textContent;
+                element.textContent = '✅ Copied!';
+                element.style.background = '#28a745';
+                setTimeout(() => {
+                    element.textContent = originalText;
+                    element.style.background = '#1e1e1e';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

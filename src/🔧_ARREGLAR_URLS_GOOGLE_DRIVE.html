@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Arreglar URLs de Google Drive</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            color: #2d3748;
+            margin-bottom: 10px;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subtitle {
+            color: #718096;
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+
+        .problem-box {
+            background: #fff5f5;
+            border-left: 4px solid #fc8181;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 8px;
+        }
+
+        .problem-box h3 {
+            color: #c53030;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .problem-box p {
+            color: #742a2a;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .solution-box {
+            background: #f0fff4;
+            border-left: 4px solid #68d391;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+        }
+
+        .solution-box h3 {
+            color: #2f855a;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .solution-box ol {
+            color: #22543d;
+            font-size: 14px;
+            line-height: 1.8;
+            padding-left: 20px;
+        }
+
+        .solution-box li {
+            margin-bottom: 8px;
+        }
+
+        .code-box {
+            background: #2d3748;
+            color: #68d391;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-box .comment {
+            color: #a0aec0;
+        }
+
+        .button-container {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        button {
+            flex: 1;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .btn-preview {
+            background: #4299e1;
+            color: white;
+        }
+
+        .btn-preview:hover {
+            background: #3182ce;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.4);
+        }
+
+        .btn-fix {
+            background: #48bb78;
+            color: white;
+        }
+
+        .btn-fix:hover {
+            background: #38a169;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(72, 187, 120, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .info-box {
+            background: #ebf8ff;
+            border-left: 4px solid #4299e1;
+            padding: 20px;
+            margin-top: 30px;
+            border-radius: 8px;
+        }
+
+        .info-box h3 {
+            color: #2c5282;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #2a4365;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .conversion-example {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .url-before {
+            color: #e53e3e;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .url-after {
+            color: #38a169;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            display: block;
+            margin-top: 8px;
+        }
+
+        .arrow {
+            text-align: center;
+            color: #4299e1;
+            font-size: 20px;
+            margin: 5px 0;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .loading {
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Arreglar URLs de Google Drive</h1>
+        <p class="subtitle">Convierte las URLs de tus vehículos al formato correcto para mostrar las imágenes</p>
+
+        <div class="problem-box">
+            <h3>❌ El Problema</h3>
+            <p>
+                Las URLs de Google Drive en formato <code>/file/d/FILE_ID/view</code> no funcionan 
+                para mostrar imágenes en la aplicación debido a restricciones de Google.
+            </p>
+        </div>
+
+        <div class="solution-box">
+            <h3>✅ La Solución</h3>
+            <ol>
+                <li>Abre la consola del navegador presionando <strong>F12</strong></li>
+                <li>Copia y pega el código de abajo en la consola</li>
+                <li>Presiona <strong>Enter</strong> para ejecutarlo</li>
+                <li>Espera a que termine el proceso</li>
+                <li>Recarga la página para ver las imágenes</li>
+            </ol>
+        </div>
+
+        <div class="conversion-example">
+            <h4 style="color: #2d3748; margin-bottom: 15px; font-size: 14px;">
+                📝 Ejemplo de Conversión:
+            </h4>
+            <span class="url-before">
+                ❌ https://drive.google.com/file/d/1pBpCHsbJJmJSHdso0SIjHtldk4J1njdE/view
+            </span>
+            <div class="arrow">↓ Se convierte a ↓</div>
+            <span class="url-after">
+                ✅ https://drive.google.com/thumbnail?id=1pBpCHsbJJmJSHdso0SIjHtldk4J1njdE&sz=w400
+            </span>
+        </div>
+
+        <div class="code-box">
+<span class="comment">// 1. Copia este código completo</span>
+<span class="comment">// 2. Pégalo en la consola del navegador (F12)</span>
+<span class="comment">// 3. Presiona Enter</span>
+
+import { fixGoogleDriveUrls } from './utils/firebase/fixGoogleDriveUrls';
+await fixGoogleDriveUrls();
+
+<span class="comment">// Espera a que termine y recarga la página</span>
+        </div>
+
+        <div class="info-box">
+            <h3>💡 ¿Qué hace este script?</h3>
+            <p>
+                ✅ Lee todos los vehículos de tu base de datos Firebase<br>
+                ✅ Detecta las URLs de Google Drive en formato incorrecto<br>
+                ✅ Las convierte al formato <code>/thumbnail</code> que SÍ funciona<br>
+                ✅ Actualiza la base de datos automáticamente<br>
+                ✅ Muestra un resumen de los cambios realizados
+            </p>
+        </div>
+
+        <div class="info-box" style="background: #fefcbf; border-left-color: #f6e05e;">
+            <h3 style="color: #744210;">⚠️ Importante</h3>
+            <p style="color: #744210;">
+                Asegúrate de que las imágenes en Google Drive estén compartidas como 
+                <strong>"Cualquier persona con el enlace"</strong> para que puedan ser vistas públicamente.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Prevenir que el usuario cierre accidentalmente
+        window.addEventListener('beforeunload', function (e) {
+            if (document.querySelector('.loading')) {
+                e.preventDefault();
+                e.returnValue = '';
+            }
+        });
+    </script>
+</body>
+</html>

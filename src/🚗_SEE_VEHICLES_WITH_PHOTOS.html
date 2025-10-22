@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Vehicles with Photos - Ready to View</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'IBM Plex Sans', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #4C68B0 0%, #667eea 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .hero {
+            background: white;
+            border-radius: 24px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 20px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+        }
+        
+        .hero .status {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-size: 1.5em;
+            display: inline-block;
+            margin: 20px 0;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+        }
+        
+        .vehicles-preview {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .vehicles-preview h2 {
+            font-size: 2.5em;
+            color: #4C68B0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .vehicle-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        
+        .vehicle-preview {
+            background: #f8f9fa;
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s;
+            border: 3px solid transparent;
+        }
+        
+        .vehicle-preview:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: #4C68B0;
+        }
+        
+        .vehicle-preview img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .vehicle-info {
+            padding: 20px;
+        }
+        
+        .vehicle-plate {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .vehicle-model {
+            font-size: 1.2em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        
+        .vehicle-badge {
+            display: inline-block;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        
+        .badge-red { background: #ffebee; color: #c62828; }
+        .badge-gray { background: #f5f5f5; color: #424242; }
+        .badge-blue { background: #e3f2fd; color: #1565c0; }
+        .badge-orange { background: #fff3e0; color: #e65100; }
+        .badge-navy { background: #e8eaf6; color: #283593; }
+        
+        .steps-section {
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 30px;
+        }
+        
+        .steps-section h2 {
+            font-size: 2.5em;
+            color: #4C68B0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .steps {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .step {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            border-left: 6px solid #28a745;
+        }
+        
+        .step-number {
+            background: #28a745;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2em;
+            font-weight: bold;
+            flex-shrink: 0;
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+        
+        .step-content h3 {
+            font-size: 1.8em;
+            color: #155724;
+            margin-bottom: 10px;
+        }
+        
+        .step-content p {
+            font-size: 1.2em;
+            color: #155724;
+            line-height: 1.6;
+        }
+        
+        .big-button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 30px 60px;
+            border-radius: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            width: 100%;
+            margin: 30px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 15px 40px rgba(40, 167, 69, 0.4);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        
+        .big-button:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(40, 167, 69, 0.5);
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 6px solid #ffc107;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .highlight-box h3 {
+            font-size: 1.8em;
+            color: #856404;
+            margin-bottom: 15px;
+        }
+        
+        .highlight-box p {
+            font-size: 1.2em;
+            color: #856404;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="hero">
+            <h1>
+                <span class="pulse">🚗</span>
+                Vehicles Ready
+            </h1>
+            <div class="status">✅ WITH PLACEHOLDER PHOTOS</div>
+            <p style="font-size: 1.4em; color: #666; margin-top: 20px;">
+                All 5 vehicles have images and are ready to view
+            </p>
+        </div>
+        
+        <div class="vehicles-preview">
+            <h2>📸 Vehicle Preview</h2>
+            <p style="text-align: center; font-size: 1.2em; color: #666; margin-bottom: 30px;">
+                This is how you'll see your vehicles in the app:
+            </p>
+            
+            <div class="vehicle-grid">
+                <div class="vehicle-preview">
+                    <img src="https://via.placeholder.com/400x300/DC143C/ffffff?text=BMW+330i+xDrive" alt="CF-545-YA">
+                    <div class="vehicle-info">
+                        <div class="vehicle-plate">CF-545-YA</div>
+                        <div class="vehicle-model">BMW 330i xDrive</div>
+                        <span class="vehicle-badge badge-red">🔴 Red Placeholder</span>
+                    </div>
+                </div>
+                
+                <div class="vehicle-preview">
+                    <img src="https://via.placeholder.com/400x300/808080/ffffff?text=BMW+540i+xDrive" alt="TK-271-GT">
+                    <div class="vehicle-info">
+                        <div class="vehicle-plate">TK-271-GT</div>
+                        <div class="vehicle-model">BMW 540i xDrive</div>
+                        <span class="vehicle-badge badge-gray">⚫ Gray Placeholder</span>
+                    </div>
+                </div>
+                
+                <div class="vehicle-preview">
+                    <img src="https://via.placeholder.com/400x300/4C68B0/ffffff?text=BMW+330I" alt="QX-504-AP">
+                    <div class="vehicle-info">
+                        <div class="vehicle-plate">QX-504-AP</div>
+                        <div class="vehicle-model">BMW 330I XDRIVE A</div>
+                        <span class="vehicle-badge badge-blue">🔵 Blue Placeholder</span>
+                    </div>
+                </div>
+                
+                <div class="vehicle-preview">
+                    <img src="https://via.placeholder.com/400x300/FF8C00/ffffff?text=BMW+330I" alt="WW-896-BA">
+                    <div class="vehicle-info">
+                        <div class="vehicle-plate">WW-896-BA</div>
+                        <div class="vehicle-model">BMW 330I XDRIVE A</div>
+                        <span class="vehicle-badge badge-orange">🟠 Orange Placeholder</span>
+                    </div>
+                </div>
+                
+                <div class="vehicle-preview">
+                    <img src="https://via.placeholder.com/400x300/000080/ffffff?text=BMW+X6" alt="QR-759-HY">
+                    <div class="vehicle-info">
+                        <div class="vehicle-plate">QR-759-HY</div>
+                        <div class="vehicle-model">BMW X6 XDRIVE35I US</div>
+                        <span class="vehicle-badge badge-navy">🔷 Navy Placeholder</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="steps-section">
+            <h2>🎯 How to See Vehicles</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Reload the Page</h3>
+                        <p>Press <strong>F5</strong> to reload the application</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Login</h3>
+                        <p>Log into the application</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>New Appointment Request</h3>
+                        <p>Click the "New Appointment Request" button</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Select Car</h3>
+                        <p>Click "Select Car" and <strong>you'll see all vehicles with placeholder photos!</strong></p>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="big-button" onclick="window.location.reload()">
+                🔄 Reload Page Now
+            </button>
+        </div>
+        
+        <div class="steps-section">
+            <h2>📷 Want to Upload Real Photos?</h2>
+            
+            <div class="highlight-box">
+                <h3>💡 Optional: Replace Placeholders</h3>
+                <p>
+                    Placeholders work perfectly, but if you want to upload real photos of your vehicles:
+                </p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Open Console</h3>
+                        <p>Press <strong>F12</strong> in your browser</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Run the Command</h3>
+                        <p><code style="background: #1e1e1e; color: #4ec9b0; padding: 10px 20px; border-radius: 8px; display: inline-block; font-size: 1.1em;">goToVehiclePhotos()</code></p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Upload Your Photos</h3>
+                        <p>Select and upload a photo for each vehicle. They'll be automatically saved to Firestore.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

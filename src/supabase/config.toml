@@ -1,0 +1,6 @@
+# Supabase Configuration
+# This file is intentionally minimal to prevent deployment errors
+
+[functions]
+# Disable automatic deployment of edge functions
+enabled = false

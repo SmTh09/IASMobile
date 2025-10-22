@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🔧 Arreglar - No se ven Fotos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'IBM Plex Sans', 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 24px;
+            max-width: 800px;
+            width: 100%;
+            padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            font-size: 3em;
+            color: #dc3545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .problem {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border-left: 6px solid #ffc107;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .problem h2 {
+            color: #856404;
+            font-size: 1.8em;
+            margin-bottom: 15px;
+        }
+        
+        .problem p {
+            color: #856404;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+        
+        .solution {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            border-left: 6px solid #28a745;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .solution h2 {
+            color: #155724;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        
+        .steps {
+            display: grid;
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .step {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            display: flex;
+            align-items: start;
+            gap: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .step-number {
+            background: #28a745;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8em;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .step-content h3 {
+            color: #155724;
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        
+        .step-content p {
+            color: #155724;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .code-box {
+            background: #1e1e1e;
+            color: #4ec9b0;
+            padding: 20px;
+            border-radius: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 1.3em;
+            text-align: center;
+            margin: 20px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .big-button {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 25px 50px;
+            border-radius: 15px;
+            font-size: 1.8em;
+            cursor: pointer;
+            width: 100%;
+            margin: 30px 0;
+            transition: all 0.3s;
+            font-weight: bold;
+            box-shadow: 0 10px 30px rgba(40, 167, 69, 0.4);
+        }
+        
+        .big-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(40, 167, 69, 0.5);
+        }
+        
+        .warning {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        
+        .warning p {
+            color: #495057;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .success-icon {
+            font-size: 4em;
+            text-align: center;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Arreglar: No se ven Fotos</h1>
+        
+        <div class="problem">
+            <h2>❌ Problema</h2>
+            <p>
+                Tus vehículos muestran <strong>cuadros de foto vacíos</strong> en lugar de imágenes placeholder.
+                Esto pasa cuando los vehículos se crearon antes de que se agregara el sistema de placeholders.
+            </p>
+        </div>
+        
+        <div class="solution">
+            <h2>✅ Solución Rápida (30 segundos)</h2>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Abre la Consola del Navegador</h3>
+                        <p>Presiona <strong>F12</strong> en tu teclado</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Ejecuta el Comando de Arreglo</h3>
+                        <p>Copia y pega este comando:</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-box">
+                await fixVehiclePhotos()
+            </div>
+            
+            <div class="warning">
+                <p>
+                    <strong>✨ Este comando:</strong><br>
+                    • Agrega imágenes placeholder de colores a todos los vehículos<br>
+                    • Preserva cualquier foto que ya hayas subido<br>
+                    • Toma unos 2 segundos en completarse
+                </p>
+            </div>
+            
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Recarga la Página</h3>
+                        <p>Presiona <strong>F5</strong> para ver las imágenes placeholder</p>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Navega a la Lista de Vehículos</h3>
+                        <p>Ve a: <strong>New Appointment Request → Select Car</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="success-icon">🎉</div>
+        
+        <button class="big-button" onclick="alert('1. Presiona F12\n2. Escribe: await fixVehiclePhotos()\n3. Presiona Enter\n4. Recarga la página (F5)')">
+            📋 Mostrar Instrucciones
+        </button>
+        
+        <div class="warning">
+            <p>
+                <strong>🎨 Lo que verás:</strong><br><br>
+                • <strong>CF-545-YA</strong> → 🔴 Placeholder rojo<br>
+                • <strong>TK-271-GT</strong> → ⚫ Placeholder gris<br>
+                • <strong>QX-504-AP</strong> → 🔵 Placeholder azul<br>
+                • <strong>WW-896-BA</strong> → 🟠 Placeholder naranja<br>
+                • <strong>QR-759-HY</strong> → 🔷 Placeholder azul marino
+            </p>
+        </div>
+    </div>
+</body>
+</html>
